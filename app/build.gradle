@@ -2,10 +2,12 @@ apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        jcenter()
+        google()
+        mavenCentral() // Add this
+        gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.51.0'
     }
 }
 
@@ -29,7 +31,7 @@ android {
     } else  {
         android.buildTypes.release.signingConfig = null
     }
-    compileSdkVersion 27
+    compileSdkVersion 35
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -40,6 +42,7 @@ android {
     }
     defaultConfig {
         applicationId "ca.rmen.android.scrumchatter"
+        namespace "ca.rmen.android.scrumchatter"
         versionCode 10606
         versionName "1.6.6"
         minSdkVersion 14
@@ -51,6 +54,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
+    }
+    buildFeatures {
+        buildConfig true
     }
     return true;
 }
