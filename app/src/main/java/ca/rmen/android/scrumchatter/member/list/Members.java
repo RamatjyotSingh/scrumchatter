@@ -164,13 +164,9 @@ public class Members {
             String currentMemberName = extras.getString(EXTRA_MEMBER_NAME);
             if (!TextUtils.isEmpty(currentMemberName) && currentMemberName.equals(input)) return null;
 
-            // Query for a member with this name, excluding deleted members
-            Cursor existingMemberCountCursor = context.getContentResolver().query(
-                    MemberColumns.CONTENT_URI, 
-                    new String[] { "count(*)" },
-                    MemberColumns.NAME + "=? AND " + MemberColumns.TEAM_ID + "=? AND " + MemberColumns.DELETED + "=0", 
-                    new String[] { String.valueOf(input), String.valueOf(teamId) }, 
-                    null);
+            // Query for a member with this name.
+            Cursor existingMemberCountCursor = context.getContentResolver().query(MemberColumns.CONTENT_URI, new String[] { "count(*)" },
+                    MemberColumns.NAME + "=? AND " + MemberColumns.TEAM_ID + "=?", new String[] { String.valueOf(input), String.valueOf(teamId) }, null);
 
             // Now Check if the team member exists.
             if (existingMemberCountCursor != null) {
